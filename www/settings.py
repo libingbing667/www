@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog.views.global_setting',
             ],
         },
     },
@@ -112,6 +113,10 @@ STATICFILES_DIRS = (
 
 )
 
+#网站基本信息配置
+
+SITE_NAME = '诸子百家个人博客'
+SITE_DESC = '专注于Python开发'
 
 LOGGING = {
     'version': 1,
