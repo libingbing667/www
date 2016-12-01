@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # -*- coding:utf-8 -*-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import logging
+import django.utils.log
+import logging.handlers
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -114,9 +117,8 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
     'formatters': {
-        'standard': {
-            'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(levelname)s]- %(message)s'
-        },
+       'standard': {
+            'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s]- %(message)s'}  #日志格式
     },
     'filters': {
     },
@@ -129,8 +131,16 @@ LOGGING = {
         'default': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(STATIC_ROOT+'/logs/','all.log'), #或者直接写路径：'c:\logs\all.log',
-            'maxBytes': 1024*1024*5, # 5 MB
+            'filename': '/log/all.log',     #日志输出文件
+            'maxBytes': 1024*1024*5,                  #文件大小
+            'backupCount': 5,                         #备份份数
+            'formatter':'standard',                   #使用哪种formatters日志格式
+        },
+        'error': {
+            'level':'ERROR',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': '/log/error.log',
+            'maxBytes':1024*1024*5,
             'backupCount': 5,
             'formatter':'standard',
         },
@@ -142,40 +152,45 @@ LOGGING = {
         'request_handler': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(STATIC_ROOT+'/logs/','script.log'), #或者直接写路径：'filename':'c:\logs\request.log''
-            'maxBytes': 1024*1024*5, # 5 MB
+            'filename': '/log/script.log',
+            'maxBytes': 1024*1024*5,
             'backupCount': 5,
             'formatter':'standard',
         },
         'scprits_handler': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(STATIC_ROOT+'/logs/','script.log'), #或者直接写路径：'filename':'c:\logs\script.log'
-            'maxBytes': 1024*1024*5, # 5 MB
+            'filename':'/log/script.log',
+            'maxBytes': 1024*1024*5,
             'backupCount': 5,
             'formatter':'standard',
-        },
+        }
     },
     'loggers': {
         'django': {
-            'handlers': ['default','console'],
+            'handlers': ['default', 'console'],
             'level': 'DEBUG',
             'propagate': False
-        },
-        'XieYin.app':{
-            'handlers': ['default','console'],
-            'level': 'DEBUG',
-            'propagate': True
         },
         'django.request': {
             'handlers': ['request_handler'],
             'level': 'DEBUG',
-            'propagate': False
+            'propagate': False,
         },
-        'scripts': { # 脚本专用日志
+        'scripts': {
             'handlers': ['scprits_handler'],
             'level': 'INFO',
             'propagate': False
         },
+        'sourceDns.webdns.views': {
+            'handlers': ['default', 'error'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+        'sourceDns.webdns.util':{
+            'handlers': ['error'],
+            'level': 'ERROR',
+            'propagate': True
+        }
     }
 }
