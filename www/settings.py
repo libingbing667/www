@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 """
 Django settings for www project.
 
@@ -10,7 +12,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
-# -*- coding:utf-8 -*-
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import logging
@@ -113,7 +115,7 @@ STATICFILES_DIRS = (
 
 )
 
-#网站基本信息配置
+##网站基本信息配置
 
 SITE_NAME = '诸子百家个人博客'
 SITE_DESC = '专注于Python开发'
