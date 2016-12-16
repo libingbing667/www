@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blogdb',
         'USER': 'root',
-        'PASSWORD':'root',
+        'PASSWORD': 'root',
         'HOST': '',
         'PORT':'',
 
@@ -120,8 +120,8 @@ STATICFILES_DIRS = (
 
 )
 
-#自动定义用户model
-AUTO_USER_MODE = 'blog.User'
+#自定义model
+AUTH_USER_MODEL = 'blog.User'
 
 ##网站基本信息配置
 
