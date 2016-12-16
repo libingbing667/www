@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'www.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': blogdb,
+        'NAME': 'blogdb',
         'USER': 'root',
         'PASSWORD':'root',
         'HOST': '',
@@ -119,6 +119,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 
 )
+
+#自动定义用户model
+AUTO_USER_MODE = 'blog.User'
 
 ##网站基本信息配置
 
